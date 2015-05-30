@@ -9,7 +9,7 @@ exports.question = function( req, res ) {
 // GET /quizes/answer
 exports.answer = function( req, res ) {
 
-  if( req.query.respuesta === "Roma" ) {
+  if( req.query.respuesta.toUpperCase() === "ROMA" ) {
     res.render('quizes/answer', { respuesta: 'Correcto' } );
   }
   else {
