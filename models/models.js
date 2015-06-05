@@ -36,7 +36,12 @@ sequelize.sync().success( function() {
           respuesta: '^Roma$',
           texto_respuesta: 'Roma'
         })
-      .success( function() { console.log("BBDD inicializada."); });
+      Quiz.create( 
+        { pregunta: '¿Capital de Portugal?',
+          respuesta: '^Lisboa$',
+          texto_respuesta: 'Lisboa'
+        })
+      .then( function() { console.log("BBDD inicializada."); });
     }
   });
 });

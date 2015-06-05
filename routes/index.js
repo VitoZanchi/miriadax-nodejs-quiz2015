@@ -10,12 +10,15 @@ router.get('/', function(req, res) {
 });
 
 /* Quiz: question */
-router.get('/quizes/question', quizController.question );
+router.get('/quizes/:quizId(\\d+)', quizController.show );
 
 /* Quiz: answer */
-router.get('/quizes/answer', quizController.answer );
+router.get('/quizes/:quizId(\\d+)/answer', quizController.answer );
 
-/* Quiz: answer */
+/* Quizes */
+router.get('/quizes', quizController.index );
+
+/* Author */
 router.get('/author', creditsController.author );
 
 module.exports = router;
