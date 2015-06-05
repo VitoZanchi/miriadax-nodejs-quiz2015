@@ -9,6 +9,9 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
+// Instalar autoload si el parametro esta presente
+router.param('quizId', quizController.load );
+
 /* Quiz: question */
 router.get('/quizes/:quizId(\\d+)', quizController.show );
 
