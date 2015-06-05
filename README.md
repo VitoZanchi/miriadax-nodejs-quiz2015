@@ -18,7 +18,7 @@ or:
 $ node ./bin/www
 ```
 
-You can also start it using npm with:
+You can also start it using npm with: 
 
 ```
 npm start
