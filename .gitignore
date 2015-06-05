@@ -17,3 +17,7 @@ node_modules
 # Some other ignores
 *~
 *.swp
+
+# BBDD and quiz.sqlite
+quiz.sqlite
+.env

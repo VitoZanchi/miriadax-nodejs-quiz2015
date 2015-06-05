@@ -2,7 +2,12 @@ body { background: #999; }
 
 #page-wrap:after { content: "Wide Layout"; }
 
-nav       { display: table-cell; width: 15%; min-height: 200px ;}
+nav       { 
+              display: table-cell; 
+              width: 15%; 
+              min-height: 200px 
+              border: 1px solid #999;
+            ;}
 nav span  { margin: 0px 100px 0px 0px; display: block; }
 section   { display: table-cell; width: 80%; min-height: 200px ;}
 footer    { clear: both;  display: block; }
