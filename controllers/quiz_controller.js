@@ -41,7 +41,7 @@ exports.index = function( req, res ) {
   search = req.query.search;
 
   // no hay parametro de busqueda: mostrar todas las preguntas:
-  if( typeof search === "undefined" ) {
+  if( typeof search === "undefined" || !search ) {
       models.Quiz.findAll().then( function( quizes ) {
         res.render('quizes/index.ejs', { quizes: quizes } );
       });

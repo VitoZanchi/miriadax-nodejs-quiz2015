@@ -8,6 +8,13 @@
 </form>
 </td>
 </tr>
+<% if ( quizes.length == 0 ) { %>
+
+<tr><td>
+No se encontraron preguntas que cumplan el criterio de búsqueda.
+</td></tr>
+
+<% } %>
 <% for( var i=0; i< quizes.length; i ++ ) { %>
   <tr>
     <td>
@@ -15,5 +22,15 @@
       <%= (i+1) + ".- " + quizes[i].pregunta %></a>
     </td>
   </tr>
+<% } %>
+
+
+<% if (typeof search !== "undefined" ) { %>
+
+<tr><td>
+<br/>
+<a href="/quizes">Volver al listado de preguntas</a>
+</td></tr>
+
 <% } %>
 </table>
