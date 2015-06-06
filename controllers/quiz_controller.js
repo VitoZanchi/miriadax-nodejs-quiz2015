@@ -36,9 +36,25 @@ exports.answer = function( req, res ) {
                                   respuesta: resultado });
 };
 
-
+// GET /quizes
 exports.index = function( req, res ) {
-  models.Quiz.findAll().then( function( quizes ) {
-    res.render('quizes/index.ejs', { quizes: quizes } );
-  });
+
+  search = req.query.search;
+  console.log( "************* |" + search + "|" );
+
+  // no hay parametro de busqueda: mostrar todas las preguntas:
+  if( typeof search === "undefined" ) {
+    console.log("HERE");
+      models.Quiz.findAll().then( function( quizes ) {
+        res.render('quizes/index.ejs', { quizes: quizes } );
+      });
+  }
+  // hay parametro de busqueda, hacer la con findAll():
+  else {
+      cadena_busqueda = "%" + search.replace(" ", "%") + "%";
+      models.Quiz.findAll( {where: ["pregunta like ?", cadena_busqueda]} ).
+         then( function( quizes ) {
+            res.render('quizes/index.ejs', { quizes: quizes } );
+      });
+  }
 }
