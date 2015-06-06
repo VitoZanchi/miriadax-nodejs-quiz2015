@@ -28,7 +28,6 @@ exports.answer = function( req, res ) {
     var respuesta_valida_regexp = req.quiz.respuesta;
     var re = new RegExp( respuesta_valida_regexp, 'i');
     var resultado = "Incorrecto";
-    console.log( "******* respuesta **********" + req.query.respuesta );
     if( req.query.respuesta.match( re ) != null ) {
       resultado = "Correcto";
     }
@@ -40,11 +39,9 @@ exports.answer = function( req, res ) {
 exports.index = function( req, res ) {
 
   search = req.query.search;
-  console.log( "************* |" + search + "|" );
 
   // no hay parametro de busqueda: mostrar todas las preguntas:
   if( typeof search === "undefined" ) {
-    console.log("HERE");
       models.Quiz.findAll().then( function( quizes ) {
         res.render('quizes/index.ejs', { quizes: quizes } );
       });
