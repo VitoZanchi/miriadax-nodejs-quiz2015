@@ -18,6 +18,12 @@ router.get('/quizes/:quizId(\\d+)', quizController.show );
 /* Quiz: answer */
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer );
 
+/* Quiz: new */
+router.get('/quizes/new', quizController.new );
+
+/* Quiz: post new */
+router.post('/quizes/create', quizController.create );
+
 /* Quizes */
 router.get('/quizes', quizController.index );
 

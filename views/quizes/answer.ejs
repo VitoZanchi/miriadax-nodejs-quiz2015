@@ -1,4 +1,10 @@
   <p><strong><%= respuesta %></strong></p>
   <p>&nbsp;</p>
+  <% if( !correcta ) { %>
+      <a href="#" id="showanswer" onclick="javascript:document.getElementById('theanswer').className='';document.getElementById('showanswer').className='hidden';">Mostrar la respuesta correcta</a>
+      <p>&nbsp;</p>
+      <p id="theanswer" class="hidden">La respuesta correcta era: <em><%= quiz.texto_respuesta %></em></p>
+  <% } %>
+  <p>&nbsp;</p>
   <p><a href="/quizes/<%= quiz.id %>">Volver a esta pregunta</a></p>
   <p><a href="/quizes">Volver al listado de preguntas</a></p>

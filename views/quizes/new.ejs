@@ -1,0 +1,41 @@
+    <form method="post" action="/quizes/create">        
+      <p><strong>Añadir nueva pregunta:</strong></p>
+      <p>&nbsp;</p>
+      <label for="pregunta">Texto de la Pregunta:</label><br/>
+      <input type="text" name="quiz[pregunta]" size="40" required 
+             placeholder="Escriba la pregunta aquí" value=""/>
+      <p>&nbsp;</p>
+      <label for="respuesta">Respuesta (expresión regular):</label><br/>
+      <input type="text" name="quiz[respuesta]" size="40" required 
+             placeholder="Escriba la respuesta aquí" value=""/>
+      <p>&nbsp;</p>
+      <label for="texto_respuesta">Texto de la respuesta:</label><br/>
+      <input type="text" name="quiz[texto_respuesta]" size="40" required 
+             placeholder="Escriba el texto de la respuesta aquí" value=""/>
+      <p>&nbsp;</p>
+      <input type="submit" value=" Guardar pregunta ">
+      <a href="/quizes"><input type="button" value=" Cancelar "/></a>
+      <br/><br/>
+      <a href="#" id="showhelp" onclick="javascript:document.getElementById('ayuda').className = ''; document.getElementById('hidehelp').className=''; document.getElementById('showhelp').className='hidden';">Mostrar ayuda sobre el formato de la respuesta</a>
+      <a href="#" id="hidehelp" class="hidden" onclick="javascript:document.getElementById('ayuda').className = 'hidden'; document.getElementById('showhelp').className=''; document.getElementById('hidehelp').className='hidden';">Ocultar ayuda</a>
+      <br/><br/>
+
+      <div id="ayuda" class="hidden" style="text-align: left; border: 1px dashed black; padding: 10px;">
+      <p><h4>AYUDA</h4><br>Introduzca la pregunta en el cajetín <strong>Texto de la pregunta</strong>.<br/><br />
+      En el cajetín "<strong>Respuesta (expresión regular)</strong>", introduzca la respuesta.<br/><br />
+      Este campo utiliza formato de <em>expresiones regulares</em>, por lo que se admiten valores como "<strong>Lisboa</strong>", "<strong>Col[óo]n</strong>", "<strong>(Crist[oó]bal )?Col[óo]n</strong>", etc.<br/><br/>
+      El tercer cajetín indica el texto que se mostrará en pantalla para indicar la respuesta correcta, ya que mostrar "<strong>Col[óo]n</strong>" no sería intuitivo para el usuario final.</p><br/><br/>
+
+      <p><strong>Ejemplo de pregunta con respuesta simple (sin expresión regular):</strong></p>
+      <em>Cajetín 1. Pregunta</em>: ¿Capital de Italia?<br />
+      <em>Cajetín 2. Respuesta (regexp)</em>: Roma<br />
+      <em>Cajetín 3. Respuesta (texto)</em>: Roma<br />
+      <br/>
+      <p><strong>Ejemplo de pregunta con respuesta múltiple (con expresión regular):</strong></p>
+      <em>Cajetín 1. Pregunta</em>: ¿Quién descubrió América?<br />
+      <em>Cajetín 2. Respuesta (regexp)</em>: Col[óo]n<br />
+      <em>Cajetín 3. Respuesta (texto)</em>: Colón<br />
+      <br/>
+      </div>
+
+    </form>
