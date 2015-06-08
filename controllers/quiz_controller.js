@@ -75,7 +75,7 @@ exports.create = function( req, res ) {
     var pregunta = req.body.quiz.pregunta;
     var respuesta = req.body.quiz.respuesta;
     var texto_respuesta = req.body.quiz.texto_respuesta;
-    var genero = req.body.quiz.genero ;
+    var genero = req.body.quiz.genero;
 
     if( typeof pregunta === "undefined" || 
         typeof respuesta === "undefined" || 
@@ -97,32 +97,33 @@ exports.create = function( req, res ) {
         quiz.respuesta = quiz.respuesta + "$";
     }
 
+    /*
+    // Sin validacion:
     quiz.save( {fields: ["pregunta", "respuesta", 
                          "texto_respuesta", "genero" ]} )
     .then( function() {
             res.redirect("/quizes");
           }
     );
-    
-    /*
-    //var errors = 0;
-    var errors = quiz.validate();
-    console.log(errors);
-    if(errors) {
-            // res.render('quizes/new', { 
-            //  quiz: quiz, errors: errors } );
-            res.redirect("/");
-    }
-    else {
-           quiz
-            .save( {fields: ["pregunta", "respuesta", 
-                             "texto_respuesta", "genero"]} )
-            .then( function() {
-              res.redirect("/quizes");
-              });
-          }
-          */
-}  
+    */
+
+    // Con validacion (requiere sequelize 2.0.0 o superior!).
+    quiz
+      .validate()
+      .then(
+          function( err ) {
+            if( err ) {
+              res.render('quizes/new', {quiz: quiz, errors: err.errors });
+            } 
+            else {
+
+              quiz.save( {fields: ["pregunta", "respuesta", 
+                                   "texto_respuesta", "genero"]} )
+              .then( function() { res.redirect("/quizes"); });
+            } // else
+         } // function err
+        ); // then
+}
 
 
 // GET /quizes/id/edit
@@ -137,16 +138,32 @@ exports.update = function( req, res ) {
     req.quiz.texto_respuesta = req.body.quiz.texto_respuesta;
     req.quiz.genero = req.body.quiz.genero;
 
+    /*
+    // Sin validacion
     req.quiz.save( {fields: ["pregunta", "respuesta", 
                              "texto_respuesta", "genero"]} )
     .then( function() {
             res.redirect("/quizes");
           }
     );
-/*
-    var errors = quiz.validate();
-    console.log(errors);
     */
+
+    // Con validacion (requiere sequelize 2.0.0 o superior!).
+    req.quiz
+      .validate()
+      .then(
+          function( err ) {
+            if( err ) {
+              res.render('quizes/new', {quiz: quiz, errors: err.errors });
+            } 
+            else {
+
+              req.quiz.save( {fields: ["pregunta", "respuesta", 
+                                   "texto_respuesta", "genero"]} )
+              .then( function() { res.redirect("/quizes"); });
+            } // else
+         } // function err
+        ); // then
 }
 
 // POST /quizes/create

@@ -1,5 +1,9 @@
 
-Voy por:
+- Solo saca como errores pregunta y texto respuesta (el resto????).
+- revisar todo
+- Subir a github y a heroku (habrá que borrar contenido de bbdd psql)
+- Publicar la practica en miriadax
+- profit!!!
 
 Busquedas: 
 - Reemplazar los caracteres áéíóí¿¡ por _  .

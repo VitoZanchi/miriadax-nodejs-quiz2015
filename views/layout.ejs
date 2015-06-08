@@ -27,10 +27,17 @@
 
       <section class="main" id="s1">
         <br/>
-        <% if ( typeof errors !== "undefined" && count(errors) != 0 ) { %>
+        <% if ( typeof errors !== "undefined" && errors.length != 0 ) { %>
 
         <div class="errorMsgs">
-           hay errores!
+          Corregir los siguientes errores:<br/><br/>
+          <% 
+             for ( var i in errors ) { %>
+     
+             <span>- <%= errors[i].message %></span><br/>
+
+             <% } %>
+          </ul>
         </div>
 
         <% } %>
