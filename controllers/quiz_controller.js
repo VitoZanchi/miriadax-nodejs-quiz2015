@@ -89,13 +89,6 @@ exports.create = function( req, res ) {
     // notacion pseudoJSON en los nombres de los campos (ver vista)
     var quiz = models.Quiz.build( req.body.quiz );
 
-    // Envolver respuesta entre ^ y $
-    if( quiz.respuesta.charAt(0) != "^" ) {
-        quiz.respuesta = "^" + quiz.respuesta;
-    }
-    if( quiz.respuesta.charAt(quiz.respuesta.length-1) != "$" ) {
-        quiz.respuesta = quiz.respuesta + "$";
-    }
 
     /*
     // Sin validacion:
@@ -116,6 +109,14 @@ exports.create = function( req, res ) {
               res.render('quizes/new', {quiz: quiz, errors: err.errors });
             } 
             else {
+
+              // Envolver respuesta entre ^ y $
+              if( quiz.respuesta.charAt(0) != "^" ) {
+                  quiz.respuesta = "^" + quiz.respuesta;
+              }
+              if( quiz.respuesta.charAt(quiz.respuesta.length-1) != "$" ) {
+                  quiz.respuesta = quiz.respuesta + "$";
+              }
 
               quiz.save( {fields: ["pregunta", "respuesta", 
                                    "texto_respuesta", "genero"]} )
@@ -154,7 +155,7 @@ exports.update = function( req, res ) {
       .then(
           function( err ) {
             if( err ) {
-              res.render('quizes/new', {quiz: quiz, errors: err.errors });
+              res.render('quizes/edit', {quiz: req.quiz, errors: err.errors });
             } 
             else {
 
