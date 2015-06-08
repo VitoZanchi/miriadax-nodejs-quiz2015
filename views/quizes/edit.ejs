@@ -1,25 +1,34 @@
-    <form method="post" action="/quizes/create">        
-      <p><strong>Añadir nueva pregunta:</strong></p>
+    <form method="post" action="/quizes/<%= quiz.id %>?_method=put">        
+      <p><strong>Editar pregunta:</strong></p>
       <p>&nbsp;</p>
       <label for="quiz[pregunta]">Texto de la Pregunta:</label><br/>
       <input type="text" name="quiz[pregunta]" size="40"
-             placeholder="Escriba la pregunta aquí" value=""/>
+             value="<%= quiz.pregunta %>"/>
       <p>&nbsp;</p>
       <label for="quiz[respuesta]">Respuesta (expresión regular):</label><br/>
       <input type="text" name="quiz[respuesta]" size="40"
-             placeholder="Escriba la respuesta aquí" value=""/>
+             value="<%= quiz.respuesta %>"/>
       <p>&nbsp;</p>
       <label for="quiz[texto_respuesta]">Texto de la respuesta:</label><br/>
       <input type="text" name="quiz[texto_respuesta]" size="40"
-             placeholder="Escriba el texto de la respuesta aquí" value=""/>
+             value="<%= quiz.texto_respuesta %>"/>
       <p>&nbsp;</p>
       <label for="quiz[genero]">Tema de la pregunta:</label><br />
       <select name="quiz[genero]">
-          <option value="Otro" selected>Otro</option>
-          <option value="Humanidades">Humanidades</option>
-          <option value="Ocio">Ocio</option>
-          <option value="Ciencia">Ciencia</option>
-          <option value="Tecnología">Tecnología</option>
+          <%
+              var temas = ["Otro", "Humanidades", "Ocio",
+                          "Ciencia", "Tecnología" ];
+              for( var i in temas ) {
+                  var text = temas[i];
+                  var selected = "";
+                  if ( quiz.genero === text ) {
+                     selected = "selected";
+                  }
+                  %>
+                  <option value="<%= text %>" <%= selected %>><%= text %></option>
+                  <%
+              }
+          %>
       </select>
       <p>&nbsp;</p>
       <input type="submit" value=" Guardar pregunta ">

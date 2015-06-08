@@ -44,14 +44,15 @@ exports.index = function( req, res ) {
 
   // no hay parametro de busqueda: mostrar todas las preguntas:
   if( typeof search === "undefined" || !search ) {
-      models.Quiz.findAll().then( function( quizes ) {
+      models.Quiz.findAll( {order: 'pregunta ASC'} ).then( function( quizes ) {
         res.render('quizes/index.ejs', { quizes: quizes } );
       });
   }
   // hay parametro de busqueda, hacer la con findAll():
   else {
       cadena_busqueda = "%" + search.replace(" ", "%") + "%";
-      models.Quiz.findAll( {where: ["pregunta like ?", cadena_busqueda]} ).
+      models.Quiz.findAll( {where: ["pregunta like ?", cadena_busqueda],
+                            order: 'pregunta ASC' } ).
          then( function( quizes ) {
             res.render('quizes/index.ejs', { quizes: quizes } );
       });
@@ -61,7 +62,8 @@ exports.index = function( req, res ) {
 // GET /quizes/new
 exports.new = function( req, res ) {
     var quiz = models.Quiz.build(
-            { pregunta: "", respuesta: "", texto_respuesta: "" }
+            { pregunta: "", respuesta: "", 
+              texto_respuesta: "", genero: "" }
         );
     res.render('quizes/new', { quiz: quiz } );
 }
@@ -70,13 +72,15 @@ exports.new = function( req, res ) {
 // POST /quizes/create
 exports.create = function( req, res ) {
 
-    var pregunta = req.body.pregunta;
-    var respuesta = req.body.respuesta;
-    var texto_respuesta = req.body.texto_respuesta;
+    var pregunta = req.body.quiz.pregunta;
+    var respuesta = req.body.quiz.respuesta;
+    var texto_respuesta = req.body.quiz.texto_respuesta;
+    var genero = req.body.quiz.genero ;
 
     if( typeof pregunta === "undefined" || 
         typeof respuesta === "undefined" || 
-        typeof texto_respuesta === "undefined" )
+        typeof texto_respuesta === "undefined" ||
+        typeof genero === "undefined" )
     {
       res.redirect("/quizes");
     }
@@ -92,9 +96,67 @@ exports.create = function( req, res ) {
     if( quiz.respuesta.charAt(quiz.respuesta.length-1) != "$" ) {
         quiz.respuesta = quiz.respuesta + "$";
     }
-    quiz.save( {fields: ["pregunta", "respuesta", "texto_respuesta"]} )
-      .then( function() {
-          res.redirect("/quizes");
-      })
+
+    quiz.save( {fields: ["pregunta", "respuesta", 
+                         "texto_respuesta", "genero" ]} )
+    .then( function() {
+            res.redirect("/quizes");
+          }
+    );
+    
+    /*
+    //var errors = 0;
+    var errors = quiz.validate();
+    console.log(errors);
+    if(errors) {
+            // res.render('quizes/new', { 
+            //  quiz: quiz, errors: errors } );
+            res.redirect("/");
+    }
+    else {
+           quiz
+            .save( {fields: ["pregunta", "respuesta", 
+                             "texto_respuesta", "genero"]} )
+            .then( function() {
+              res.redirect("/quizes");
+              });
+          }
+          */
+}  
+
+
+// GET /quizes/id/edit
+exports.edit = function( req, res ) {
+    res.render('quizes/edit', { quiz: req.quiz } );
+}
+
+
+exports.update = function( req, res ) {
+    req.quiz.pregunta = req.body.quiz.pregunta;
+    req.quiz.respuesta = req.body.quiz.respuesta;
+    req.quiz.texto_respuesta = req.body.quiz.texto_respuesta;
+    req.quiz.genero = req.body.quiz.genero;
+
+    req.quiz.save( {fields: ["pregunta", "respuesta", 
+                             "texto_respuesta", "genero"]} )
+    .then( function() {
+            res.redirect("/quizes");
+          }
+    );
+/*
+    var errors = quiz.validate();
+    console.log(errors);
+    */
+}
+
+// POST /quizes/create
+exports.destroy = function( req, res ) {
+
+  req.quiz.destroy().then( 
+      function() {
+        res.redirect("/quizes");
+      } // end function
+      ).catch( function(error) { next(error); } );
+
 }
 

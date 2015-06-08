@@ -21,6 +21,18 @@ No se encontraron preguntas que cumplan el criterio de búsqueda.
       <a href="/quizes/<%= quizes[i].id %>">
       <%= (i+1) + ".- " + quizes[i].pregunta %></a>
     </td>
+
+    <td>
+
+      <a href="/quizes/<%= quizes[i].id %>/edit">
+      <input type="button" value=" Editar " /></a>
+    </td>
+    <td>
+      <form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+        <input type="submit" value=" Borrar "  
+                onclick="return confirm('¿Borrar pregunta \'<%= quizes[i].pregunta %>\' ?');" /> 
+      </form>
+    </td>
   </tr>
 <% } %>
 

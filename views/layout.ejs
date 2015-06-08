@@ -26,11 +26,18 @@
       </nav>
 
       <section class="main" id="s1">
-        <p>
+        <br/>
+        <% if ( typeof errors !== "undefined" && count(errors) != 0 ) { %>
+
+        <div class="errorMsgs">
+           hay errores!
+        </div>
+
+        <% } %>
         <div>
           <%- body %>
         </div>
-        <p>
+        <pbr/>
       </section>
 
       <footer class="main" id="f1">

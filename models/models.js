@@ -34,12 +34,20 @@ sequelize.sync().success( function() {
       Quiz.create( 
         { pregunta: '¿Capital de Italia?',
           respuesta: '^Roma$',
-          texto_respuesta: 'Roma'
+          texto_respuesta: 'Roma',
+          genero: 'Humanidades'
         })
-      Quiz.create( 
+        Quiz.create( 
         { pregunta: '¿Capital de Portugal?',
           respuesta: '^Lisboa$',
-          texto_respuesta: 'Lisboa'
+          texto_respuesta: 'Lisboa',
+          genero: 'Humanidades'
+        })
+        Quiz.create( 
+        { pregunta: '¿Cómo se llama el satélite de la Tierra?',
+          respuesta: '^(la )?luna$',
+          texto_respuesta: 'Luna',
+          genero: 'Ciencia'
         })
       .then( function() { console.log("BBDD inicializada."); });
     }

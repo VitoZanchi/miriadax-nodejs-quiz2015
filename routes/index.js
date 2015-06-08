@@ -24,6 +24,13 @@ router.get('/quizes/new', quizController.new );
 /* Quiz: post new */
 router.post('/quizes/create', quizController.create );
 
+/* Quiz: update */
+router.get('/quizes/:quizId(\\d+)/edit', quizController.edit );
+router.put('/quizes/:quizId(\\d+)', quizController.update );
+
+/* Quiz: delete */
+router.delete('/quizes/:quizId(\\d+)', quizController.destroy );
+
 /* Quizes */
 router.get('/quizes', quizController.index );
 
