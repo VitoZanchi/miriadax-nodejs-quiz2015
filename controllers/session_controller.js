@@ -47,3 +47,13 @@ exports.destroy = function( req, res ) {
   }
 }
 
+
+// Loginrequired:
+exports.loginRequired = function( req, res, next ) {
+  if( req.session.user ) {
+    next();
+  } 
+  else {
+    res.redirect("/login");
+  }
+};

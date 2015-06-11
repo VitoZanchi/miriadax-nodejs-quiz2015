@@ -22,24 +22,28 @@ No se encontraron preguntas que cumplan el criterio de búsqueda.
       <%= (i+1) + ".- " + quizes[i].pregunta %></a>
     </td>
 
-    <td>
+   <% if( session.user ) { %>
+        <td>
 
-      <a href="/quizes/<%= quizes[i].id %>/edit">
-      <input type="button" value=" Editar " /></a>
-    </td>
-    <td>
-      <form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
-        <input type="submit" value=" Borrar "  
-                onclick="return confirm('¿Borrar pregunta \'<%= quizes[i].pregunta %>\' ?');" /> 
-      </form>
-    </td>
+          <a href="/quizes/<%= quizes[i].id %>/edit">
+          <input type="button" value=" Editar " /></a>
+        </td>
+        <td>
+          <form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
+            <input type="submit" value=" Borrar "  
+                    onclick="return confirm('¿Borrar pregunta \'<%= quizes[i].pregunta %>\' ?');" /> 
+          </form>
+        </td>
+   <% } %>
   </tr>
 <% } %>
 
-<tr><td>
-<br/ >
-<a href="/quizes/new"><input type="button" value=" Crear nueva pregunta "/></a>
-</td></tr>
+<% if( session.user ) { %>
+    <tr><td>
+    <br/ >
+    <a href="/quizes/new"><input type="button" value=" Crear nueva pregunta "/></a>
+    </td></tr>
+<% } %>
 
 <% if (typeof search !== "undefined" ) { %>
 
