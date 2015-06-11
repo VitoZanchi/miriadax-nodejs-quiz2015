@@ -7,3 +7,19 @@
              placeholder="Escriba la respuesta aqui" value=""/>
       <input type="submit" value="Enviar">
     </form>
+
+    <br/>
+    <p>
+    <a href="/quizes/<%= quiz.id %>/comments/new/">
+    <input type="button" value=" Nuevo comentario " />
+    </a>
+    </p>
+
+    <br/>
+    <% if( quiz.Comments.length > 0 ) { %>
+        <p><strong>Comentarios:</strong></p>
+        <% for(index in quiz.Comments ) { %>
+          <p> - <%= quiz.Comments[index].texto %> </p>
+        <% } %>
+    <% } %>
+

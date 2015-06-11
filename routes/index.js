@@ -3,6 +3,7 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller.js');
 var creditsController = require('../controllers/credits_controller.js');
+var commentController = require('../controllers/comment_controller.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -36,5 +37,9 @@ router.get('/quizes', quizController.index );
 
 /* Author */
 router.get('/author', creditsController.author );
+
+/* Comments */
+router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new );
+router.post('/quizes/:quizId(\\d+)/comments', commentController.create );
 
 module.exports = router;
