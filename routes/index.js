@@ -4,6 +4,7 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller.js');
 var creditsController = require('../controllers/credits_controller.js');
 var commentController = require('../controllers/comment_controller.js');
+var sessionController = require('../controllers/session_controller.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -13,26 +14,19 @@ router.get('/', function(req, res) {
 // Instalar autoload si el parametro esta presente
 router.param('quizId', quizController.load );
 
-/* Quiz: question */
+// Rutas de session:
+router.get('/login', sessionController.new );
+router.post('/login', sessionController.create );
+router.get('/logout', sessionController.destroy );
+
+/* Quizes: question, answer, new, post new, update, delete ...  */
 router.get('/quizes/:quizId(\\d+)', quizController.show );
-
-/* Quiz: answer */
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer );
-
-/* Quiz: new */
 router.get('/quizes/new', quizController.new );
-
-/* Quiz: post new */
 router.post('/quizes/create', quizController.create );
-
-/* Quiz: update */
 router.get('/quizes/:quizId(\\d+)/edit', quizController.edit );
 router.put('/quizes/:quizId(\\d+)', quizController.update );
-
-/* Quiz: delete */
 router.delete('/quizes/:quizId(\\d+)', quizController.destroy );
-
-/* Quizes */
 router.get('/quizes', quizController.index );
 
 /* Author */

@@ -20,3 +20,7 @@ div.errorMsgs span { color: red; }
 section table {
       margin: 0 auto; /* or margin: 0 auto 0 auto */
     }
+
+.right { 
+  float: right;
+}
