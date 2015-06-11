@@ -13,6 +13,7 @@ router.get('/', function(req, res) {
 
 // Instalar autoload si el parametro esta presente
 router.param('quizId', quizController.load );
+router.param('commentId', commentController.load );
 
 // Rutas de session:
 router.get('/login', sessionController.new );
@@ -35,5 +36,8 @@ router.get('/author', creditsController.author );
 /* Comments */
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new );
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create );
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', 
+                                              sessionController.loginRequired, 
+                                              commentController.publish );
 
 module.exports = router;

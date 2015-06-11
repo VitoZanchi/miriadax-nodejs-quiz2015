@@ -2,6 +2,27 @@
 var models = require('../models/models.js');
 
 
+
+// Autoload: se usa si ruta incluye :quizId
+exports.load = function( req, res, next, commentId ) {
+  models.Comment.find(
+                {
+                  where: { id: Number(commentId) }
+                }
+              ).then (
+    function( comment ) {
+      if( comment ) {
+        req.comment = comment;
+        next();
+      }
+      else {
+        next( new Error('No existe el comentario de ID ' + commentId ));
+      }
+    }
+  ).catch( function(error) { next(error); });
+}
+
+
 // GET (new comment form)
 exports.new= function( req, res ) {
     res.render('comments/new.ejs', {    comment: "",
@@ -37,3 +58,11 @@ exports.create = function( req, res ) {
         ).catch(function(error){ next(error) }); // then
 }
 
+
+exports.publish = function( req, res ) {
+
+  req.comment.publicado = true;
+  req.comment.save( { fields: ["publicado"] } )
+    .then( function() { res.redirect("/quizes/" + req.params.quizId); } )
+    .catch(function(error){ next(error) });
+};

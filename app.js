@@ -28,7 +28,11 @@ app.use(bodyParser.json());
 // Allow bodyParser to generate JSON objects:
 app.use(bodyParser.urlencoded( { extended: true } ));
 app.use(cookieParser('Quiz-sromeroi'));
-app.use(session());
+app.use(session( { 
+                   secret: 'Quiz-sromeroi',
+                   resave: true,
+                   saveUninitialized: true
+      } ));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
