@@ -12,6 +12,37 @@ var routes = require('./routes/index.js');
 
 var app = express();
 
+
+function autologout( req, res, next ) {
+
+  var timeout = 120*1000;
+
+  // ¿Es un usuario autenticado? -> Sí: hacer nuestra comprobación:
+  if( typeof req.session !== "undefined" && 
+      typeof req.session.user !== "undefined" ) {
+    var now = new Date().getTime();
+
+    // Primera visita (aun no existe variable de sesión lastvisit):
+    if( typeof req.session.lastvisit === "undefined" ) {
+      req.session.lastvisit = now;
+    }
+    // Ya tenemos un timestamp, comparar!
+    else {
+      var lastvisit = req.session.lastvisit;
+      if( (now - lastvisit) > timeout ) {
+        delete req.session.user;
+      }
+      else {
+        req.session.lastvisit = now;
+      }
+    }
+  }
+
+  // No es un usuario autenticado o ya hemos terminado el chequeo del tiempo:
+  next();
+
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -35,6 +66,8 @@ app.use(session( {
       } ));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use( autologout );
 
 // Helper dinamico sesiones
 app.use( function( req, res, next ) {
